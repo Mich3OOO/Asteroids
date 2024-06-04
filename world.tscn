@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://csscjy4mb1ldj"]
+
+[ext_resource type="Texture2D" uid="uid://bmu2tludirb30" path="res://ship.png" id="1_bped5"]
+[ext_resource type="Script" path="res://scripts/InputManager.gd" id="1_ltisb"]
+[ext_resource type="Script" path="res://scripts/ShipMovement.gd" id="3_w4nrk"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lgsbw"]
+
+[node name="World" type="Node2D" node_paths=PackedStringArray("ShipPlayer")]
+script = ExtResource("1_ltisb")
+ShipPlayer = NodePath("Ship")
+
+[node name="Ship" type="RigidBody2D" parent="."]
+position = Vector2(302, 211)
+physics_material_override = SubResource("PhysicsMaterial_lgsbw")
+gravity_scale = 0.0
+script = ExtResource("3_w4nrk")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ship"]
+polygon = PackedVector2Array(0, -47, 35, 23, -35, 23)
+
+[node name="Sprite" type="Sprite2D" parent="Ship"]
+position = Vector2(0, -11)
+texture = ExtResource("1_bped5")
