@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @export var ShipPlayer:Node
 # Called when the node enters the scene tree for the first time.
@@ -10,14 +10,16 @@ func _ready():
 func _process(delta):
 	pass
 
-func _input(event):
-	if(event.is_action("MoveF")):
+
+
+
+func _physics_process(delta):
+	if(Input.is_key_pressed(KEY_UP)):
 		ShipPlayer.MoveForward()
-		
-		
-	if(event.is_action("RotateL")):
+	if(Input.is_key_pressed(KEY_LEFT)):
 		ShipPlayer.RotateL()
-	if(event.is_action("RotateR")):
+	if(Input.is_key_pressed(KEY_RIGHT)):
 		ShipPlayer.RotateR()
-	if(event.is_action("Shoot")):
+	if(Input.is_key_pressed(KEY_SPACE)):
 		ShipPlayer.Shoot()
+	
