@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://csscjy4mb1ldj"]
+[gd_scene load_steps=5 format=3 uid="uid://csscjy4mb1ldj"]
 
 [ext_resource type="Texture2D" uid="uid://bmu2tludirb30" path="res://ship.png" id="1_bped5"]
 [ext_resource type="Script" path="res://scripts/InputManager.gd" id="1_ltisb"]
 [ext_resource type="Script" path="res://scripts/ShipMovement.gd" id="3_w4nrk"]
-[ext_resource type="PackedScene" uid="uid://b1j8o6ri6wevv" path="res://asteroid.tscn" id="4_jxdlr"]
-[ext_resource type="Script" path="res://scripts/GeneratorScript.gd" id="5_dxiph"]
+[ext_resource type="Script" path="res://scripts/Asteroid.gd" id="4_kswi4"]
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("ShipPlayer")]
 script = ExtResource("1_ltisb")
@@ -22,7 +21,5 @@ polygon = PackedVector2Array(0, -47, 35, 23, -35, 23)
 position = Vector2(0, -11)
 texture = ExtResource("1_bped5")
 
-[node name="Asteroid" parent="." instance=ExtResource("4_jxdlr")]
-
-[node name="asteroids generator" type="Node2D" parent="."]
-script = ExtResource("5_dxiph")
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("4_kswi4")
