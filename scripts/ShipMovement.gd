@@ -14,16 +14,22 @@ var dir = Vector2.ZERO
 var linear = Vector2.ZERO
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	tag = "ship"
 	position = Vector2(640,360) # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	super(delta)
-
+	test_Collisions()
 	
 	
-
+func test_Collisions():
+	if has_overlapping_areas():
+		die()
+		
+func die():
+	self.queue_free()
 
 func MoveForward():
 	dir = (Vector2.UP.rotated(rotation) + dir).normalized()
@@ -44,7 +50,7 @@ func Shoot():
 	if canShoot:
 		var bullterdir = Vector2.UP.rotated(rotation)
 		var newbullet = bulletRes.instantiate()
-		newbullet.init(bullterdir,position + bullterdir * 45)
+		newbullet.init(bullterdir,position + bullterdir * 60)
 		newbullet.set_name("b")
 		get_tree().get_root().get_node("World").add_child(newbullet)
 		canShoot = false
@@ -58,4 +64,9 @@ func _physics_process(delta):
 		linear *= friction
 	else:
 		linear = Vector2.ZERO
-		
+	
+
+func _draw():
+	var line = get_child(0).polygon
+	line.append(line[0])
+	draw_polyline(line,Color.WHITE)
