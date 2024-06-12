@@ -6,3 +6,4 @@
 position = Vector2(626, 347)
 scale = Vector2(2.99999, 2.99999)
 script = ExtResource("2_eabsh")
+metadata/tag = "bullet"

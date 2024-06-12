@@ -36,22 +36,22 @@ func forceSmall(NewPos):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	tag = "asteroid"
 	super(delta)
 	test_Collisions()
 
 func test_Collisions():
 	if has_overlapping_areas():
 		for c in get_overlapping_areas():
-			if c.tag == "bullet":
+			if c.has_meta("tag") and c.get_meta("tag") == "bullet":
 				die()
-		
+
 func die():
 	if !small:
 		for i in range(2):
 			var newAsteroid = AteroidAsset.instantiate()
 			newAsteroid.forceSmall(position)
 			get_tree().get_root().get_node("World").add_child.call_deferred(newAsteroid)
+	find_parent("World").addPoint(10*size)
 	self.queue_free()
 
 

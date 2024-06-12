@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://kfiuiqq5qpnq"]
+
+[ext_resource type="Script" path="res://scripts/ShipMovement.gd" id="1_e2r8j"]
+
+[node name="Ship" type="Area2D"]
+position = Vector2(626, 397)
+script = ExtResource("1_e2r8j")
+metadata/tag = "ship"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -47, 35, 23, -35, 23)

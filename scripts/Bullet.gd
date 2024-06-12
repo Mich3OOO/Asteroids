@@ -8,8 +8,6 @@ var Collision = CollisionShape2D.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	tag = "bullet"
-	print("created")
 	get_tree().create_timer(lifeTime).timeout.connect(func(): self.queue_free())
 	Collision.shape = RectangleShape2D.new()
 	Collision.shape.size = Vector2.ONE * size

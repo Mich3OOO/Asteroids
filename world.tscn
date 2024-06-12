@@ -1,19 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://csscjy4mb1ldj"]
+[gd_scene load_steps=5 format=3 uid="uid://csscjy4mb1ldj"]
 
 [ext_resource type="Script" path="res://scripts/InputManager.gd" id="1_ltisb"]
-[ext_resource type="Script" path="res://scripts/ShipMovement.gd" id="3_w4nrk"]
+[ext_resource type="PackedScene" uid="uid://vj70eqlupr0s" path="res://playb.tscn" id="3_5ius6"]
 [ext_resource type="Script" path="res://scripts/GeneratorScript.gd" id="5_dxiph"]
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("ShipPlayer")]
+[sub_resource type="LabelSettings" id="LabelSettings_w7up2"]
+font_size = 50
+
+[node name="World" type="Node2D"]
 script = ExtResource("1_ltisb")
-ShipPlayer = NodePath("Ship")
-
-[node name="Ship" type="Area2D" parent="."]
-position = Vector2(626, 397)
-script = ExtResource("3_w4nrk")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ship"]
-polygon = PackedVector2Array(0, -47, 35, 23, -35, 23)
 
 [node name="asteroids generator" type="Node2D" parent="."]
 script = ExtResource("5_dxiph")
+metadata/tag = "AsteroidGen"
+
+[node name="PlayButton" parent="." instance=ExtResource("3_5ius6")]
+offset_left = 590.0
+offset_top = 360.0
+offset_right = 690.0
+offset_bottom = 460.0
+
+[node name="Points" type="Label" parent="."]
+offset_right = 200.0
+offset_bottom = 100.0
+text = "0"
+label_settings = SubResource("LabelSettings_w7up2")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/tag = "point"
+
+[node name="ExitButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 590.0
+offset_top = 470.0
+offset_right = 690.0
+offset_bottom = 570.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit Game"
+
+[connection signal="button_down" from="PlayButton" to="." method="start_Game"]
+[connection signal="button_down" from="ExitButton" to="." method="QuitGame"]

@@ -14,7 +14,6 @@ var dir = Vector2.ZERO
 var linear = Vector2.ZERO
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	tag = "ship"
 	position = Vector2(640,360) # Replace with function body.
 
 
@@ -29,6 +28,7 @@ func test_Collisions():
 		die()
 		
 func die():
+	find_parent("World").EndGame()
 	self.queue_free()
 
 func MoveForward():

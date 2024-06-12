@@ -15,7 +15,6 @@ func _process(delta):
 
 
 func createAsteroide():
-	
 	var newAsteroid = AteroidAsset.instantiate()
 	get_tree().get_root().get_node("World").add_child.call_deferred(newAsteroid)
 	get_tree().create_timer(asteroidCooldown).timeout.connect(func(): createAsteroide())
