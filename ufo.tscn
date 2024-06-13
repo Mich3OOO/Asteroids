@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bby4apn0nhdfk"]
+
+[ext_resource type="Script" path="res://scripts/UFObehaviour.gd" id="1_ba37h"]
+
+[node name="UFO" type="Area2D"]
+position = Vector2(300, 300)
+script = ExtResource("1_ba37h")
+metadata/tag = "UFO"

@@ -4,17 +4,23 @@ extends EntityBase
 
 var ran = RandomNumberGenerator.new()
 var BulletAsset = preload("res://bullet.tscn")
-var speed = 300
+var speed = 100
 var dir = Vector2.ZERO
 var Collision = CollisionPolygon2D.new()
-var size =10
+var size = 1.5
+
+var shootCooldow = 2
+var sigleShootCooldown = 0.2
+var bulletRes = preload("res://bullet.tscn")
+var shootedBullet = 0
+var maxShootedBullet = 3
 func _ready():
-	ran.randi_range(0,3)
+	get_tree().create_timer(shootCooldow).timeout.connect(func(): multipleshoot())
 	dir = Vector2.UP.rotated(ran.randi_range(0,3) * PI/2)
 	
-	var Pointlist = [Vector2(30,0),Vector2(30,-10),Vector2(10,-22),Vector2(-10,-22),Vector2(-30,-10),Vector2(-30,0),Vector2(22,10),Vector2(-22,10),Vector2(-30,0)]
-	for i in Pointlist:
-		i *= size
+	var Pointlist = [Vector2(30,0),Vector2(30,-10),Vector2(10,-22),Vector2(-10,-22),Vector2(-30,-10),Vector2(-30,0),Vector2(-22,10), Vector2(22,10),Vector2(30,0)]
+	for i in range(0,len(Pointlist)):
+		Pointlist[i] *= size
 	borderOffset = 100
 	
 	Collision.polygon = PackedVector2Array(Pointlist)
@@ -35,7 +41,7 @@ func test_Collisions():
 				die()
 
 func die():
-	find_parent("World").addPoint(10*size)
+	find_parent("World").addPoint(150)
 	self.queue_free()
 
 
@@ -45,24 +51,47 @@ func _draw():
 	var line = Collision.polygon
 	line.append(line[0])
 	draw_polyline(line,Color.WHITE)
+	draw_line(Vector2(30,0)*size,Vector2(-30,0)*size,Color.WHITE)
 	
 
 
 func _physics_process(delta):
-	#self.position += dir * speed * delta
+	if shootedBullet == 0: self.position += dir * speed * delta
 	pass
 
 func setStartPosition():
-	var num = ran.randi_range(0,3)
+	
 	var m = borderOffset+1
-	if num == 0:
+	if dir.y == -1:
 		position = Vector2(ran.randi_range(0,1280),-m)
-	elif num == 1:
+	elif dir.x == -1:
 		position = Vector2(1280+m,ran.randi_range(0,720))
-	elif num == 2:
+	elif dir.y == 1:
 		position = Vector2(ran.randi_range(0,1280),720+m)
-	elif num == 3:
+	elif dir.x == 1:
 		position = Vector2(-m,ran.randi_range(0,720))
 		
+
+func multipleshoot():
+	oneShoot()
+	
+
+func oneShoot():
+	var bullterdir
+	var newbullet
+	for i in range(0,4):
 		
+		bullterdir = Vector2.UP.rotated(i*PI/2)
+		newbullet = bulletRes.instantiate()
+		newbullet.init(bullterdir,position + bullterdir * 60)
+		newbullet.set_meta("tag","UFO bullet")
+		newbullet.speed = 200
+		get_tree().get_root().get_node("World").add_child(newbullet)
+	
+	if shootedBullet <= maxShootedBullet:
+		shootedBullet +=1
+		get_tree().create_timer(sigleShootCooldown).timeout.connect(func(): oneShoot())
+	else:
+		shootedBullet = 0
+		get_tree().create_timer(shootCooldow).timeout.connect(func(): multipleshoot())
 

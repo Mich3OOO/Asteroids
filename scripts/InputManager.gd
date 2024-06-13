@@ -8,6 +8,7 @@ var QuitButton
 var play = false
 var point = 0
 var PointLabel 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PointLabel = find_child("Points")
@@ -33,7 +34,7 @@ func _physics_process(delta):
 func start_Game():
 	if !play:
 		for i in get_children():
-			if i.has_meta("tag") and i.get_meta("tag") == "asteroid":
+			if i.has_meta("tag") and (i.get_meta("tag") == "asteroid" or i.get_meta("tag") == "UFO"):
 				i.queue_free()
 		var newship = ship.instantiate()
 		add_child(newship)

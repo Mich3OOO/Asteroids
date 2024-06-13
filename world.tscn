@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/InputManager.gd" id="1_ltisb"]
 [ext_resource type="PackedScene" uid="uid://vj70eqlupr0s" path="res://playb.tscn" id="3_5ius6"]
-[ext_resource type="Script" path="res://scripts/UFObehaviour.gd" id="4_nkqe1"]
+[ext_resource type="PackedScene" uid="uid://bby4apn0nhdfk" path="res://ufo.tscn" id="4_6046q"]
 [ext_resource type="Script" path="res://scripts/GeneratorScript.gd" id="5_dxiph"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w7up2"]
@@ -13,6 +13,7 @@ script = ExtResource("1_ltisb")
 
 [node name="asteroids generator" type="Node2D" parent="."]
 script = ExtResource("5_dxiph")
+Cooldown = 1.3
 metadata/tag = "AsteroidGen"
 
 [node name="PlayButton" parent="." instance=ExtResource("3_5ius6")]
@@ -44,10 +45,11 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Quit Game"
 
-[node name="UFO" type="Area2D" parent="."]
-position = Vector2(300, 300)
-script = ExtResource("4_nkqe1")
-metadata/tag = "UFO"
+[node name="UFO generator" type="Node2D" parent="."]
+script = ExtResource("5_dxiph")
+Cooldown = 15.0
+enemyAsset = ExtResource("4_6046q")
+metadata/tag = "AsteroidGen"
 
 [connection signal="button_down" from="PlayButton" to="." method="start_Game"]
 [connection signal="button_down" from="ExitButton" to="." method="QuitGame"]

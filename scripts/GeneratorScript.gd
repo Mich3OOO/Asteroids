@@ -1,12 +1,12 @@
 extends Node2D
 
-@export var asteroidCooldown = 1.2
+@export var Cooldown = 1.2
 
 
-var AteroidAsset = preload("res://asteroid.tscn")
+@export var enemyAsset = preload("res://asteroid.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#createAsteroide()
+	get_tree().create_timer(Cooldown).timeout.connect(func(): createAsteroide())
 	pass
 	
 
@@ -16,6 +16,6 @@ func _process(delta):
 
 
 func createAsteroide():
-	var newAsteroid = AteroidAsset.instantiate()
-	get_tree().get_root().get_node("World").add_child.call_deferred(newAsteroid)
-	get_tree().create_timer(asteroidCooldown).timeout.connect(func(): createAsteroide())
+	var NewEnemy = enemyAsset.instantiate()
+	get_tree().get_root().get_node("World").add_child.call_deferred(NewEnemy)
+	get_tree().create_timer(Cooldown).timeout.connect(func(): createAsteroide())
