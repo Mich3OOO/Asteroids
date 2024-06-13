@@ -52,7 +52,7 @@ Cooldown = 15.0
 enemyAsset = ExtResource("4_6046q")
 metadata/tag = "AsteroidGen"
 
-[node name="AudioManager" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioManager" type="Node2D" parent="."]
 script = ExtResource("5_k3km6")
 
 [connection signal="button_down" from="PlayButton" to="." method="start_Game"]
