@@ -9,8 +9,9 @@ var speed = 300
 var dir = Vector2.ZERO
 var small = false
 var Collision = CollisionPolygon2D.new()
-
+var soundManager 
 func _ready():
+	soundManager = self.get_parent().get_node("AudioManager")
 	size = ran.randi_range(4,9)
 	if small: size = ran.randi_range(3,6)
 	var rot = 0
@@ -52,6 +53,7 @@ func die():
 			var newAsteroid = AteroidAsset.instantiate()
 			newAsteroid.forceSmall(position)
 			get_tree().get_root().get_node("World").add_child.call_deferred(newAsteroid)
+	soundManager.PlayAsteroidExplosion()
 	find_parent("World").addPoint(10*size)
 	self.queue_free()
 

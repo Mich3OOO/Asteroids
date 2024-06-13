@@ -1,6 +1,7 @@
 extends EntityBase
 
 class_name ShipMovement
+
 @export var RSpeed = 0.1
 @export var friction = 0.98
 @export var speed = 130
@@ -12,8 +13,10 @@ var canShoot = true
 var bulletRes = preload("res://bullet.tscn")
 var dir = Vector2.ZERO
 var linear = Vector2.ZERO
+var soundManager
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	soundManager = self.get_parent().get_node("AudioManager")
 	position = Vector2(640,360) # Replace with function body.
 
 
@@ -28,6 +31,7 @@ func test_Collisions():
 		die()
 		
 func die():
+	soundManager.PlayShipExplosion()
 	find_parent("World").EndGame()
 	self.queue_free()
 
@@ -54,6 +58,7 @@ func Shoot():
 		newbullet.set_name("b")
 		get_tree().get_root().get_node("World").add_child(newbullet)
 		canShoot = false
+		soundManager.PlayShoot()
 		get_tree().create_timer(ShootCooldowm).timeout.connect(func(): canShoot = true)
 		
 

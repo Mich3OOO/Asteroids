@@ -14,7 +14,9 @@ var sigleShootCooldown = 0.2
 var bulletRes = preload("res://bullet.tscn")
 var shootedBullet = 0
 var maxShootedBullet = 3
+var soundManager
 func _ready():
+	soundManager = self.get_parent().get_node("AudioManager")
 	get_tree().create_timer(shootCooldow).timeout.connect(func(): multipleshoot())
 	dir = Vector2.UP.rotated(ran.randi_range(0,3) * PI/2)
 	
@@ -41,6 +43,7 @@ func test_Collisions():
 				die()
 
 func die():
+	soundManager.PlayUFOExplosion()
 	find_parent("World").addPoint(150)
 	self.queue_free()
 
@@ -87,7 +90,8 @@ func oneShoot():
 		newbullet.set_meta("tag","UFO bullet")
 		newbullet.speed = 200
 		get_tree().get_root().get_node("World").add_child(newbullet)
-	
+		soundManager.PlayShoot()
+		
 	if shootedBullet <= maxShootedBullet:
 		shootedBullet +=1
 		get_tree().create_timer(sigleShootCooldown).timeout.connect(func(): oneShoot())

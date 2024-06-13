@@ -8,7 +8,7 @@ var QuitButton
 var play = false
 var point = 0
 var PointLabel 
-
+#get_node("Ball")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PointLabel = find_child("Points")

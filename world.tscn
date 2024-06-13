@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://csscjy4mb1ldj"]
+[gd_scene load_steps=7 format=3 uid="uid://csscjy4mb1ldj"]
 
 [ext_resource type="Script" path="res://scripts/InputManager.gd" id="1_ltisb"]
 [ext_resource type="PackedScene" uid="uid://vj70eqlupr0s" path="res://playb.tscn" id="3_5ius6"]
 [ext_resource type="PackedScene" uid="uid://bby4apn0nhdfk" path="res://ufo.tscn" id="4_6046q"]
 [ext_resource type="Script" path="res://scripts/GeneratorScript.gd" id="5_dxiph"]
+[ext_resource type="Script" path="res://scripts/SoundManager.gd" id="5_k3km6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w7up2"]
 font_size = 50
@@ -50,6 +51,9 @@ script = ExtResource("5_dxiph")
 Cooldown = 15.0
 enemyAsset = ExtResource("4_6046q")
 metadata/tag = "AsteroidGen"
+
+[node name="AudioManager" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("5_k3km6")
 
 [connection signal="button_down" from="PlayButton" to="." method="start_Game"]
 [connection signal="button_down" from="ExitButton" to="." method="QuitGame"]
