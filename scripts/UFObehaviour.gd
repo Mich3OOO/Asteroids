@@ -3,37 +3,25 @@ extends EntityBase
 
 
 var ran = RandomNumberGenerator.new()
-var size = 10
-var AteroidAsset = preload("res://asteroid.tscn")
+var BulletAsset = preload("res://bullet.tscn")
 var speed = 300
 var dir = Vector2.ZERO
-var small = false
 var Collision = CollisionPolygon2D.new()
-
+var size =10
 func _ready():
-	size = ran.randi_range(4,9)
-	if small: size = ran.randi_range(3,6)
-	var rot = 0
-	dir = Vector2.UP.rotated(ran.randf_range(0,PI*2))
-	speed = speed/size
-	var Pointlist = []
+	ran.randi_range(0,3)
+	dir = Vector2.UP.rotated(ran.randi_range(0,3) * PI/2)
 	
-
-	while rot < 2 * PI:
-		Pointlist.append(Vector2.UP.rotated(rot) * ran.randi_range(3,12) *size)
-		rot += (2 * PI)/10 + randf_range(-0.5,0.5)
-	
+	var Pointlist = [Vector2(30,0),Vector2(30,-10),Vector2(10,-22),Vector2(-10,-22),Vector2(-30,-10),Vector2(-30,0),Vector2(22,10),Vector2(-22,10),Vector2(-30,0)]
+	for i in Pointlist:
+		i *= size
 	borderOffset = 100
-	if !small: setStartPosition()
 	
 	Collision.polygon = PackedVector2Array(Pointlist)
 	add_child(Collision)
-	if size<=6 : small = true
+	setStartPosition()
 
 
-func forceSmall(NewPos):
-	small = true
-	position = NewPos
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -47,11 +35,6 @@ func test_Collisions():
 				die()
 
 func die():
-	if !small:
-		for i in range(2):
-			var newAsteroid = AteroidAsset.instantiate()
-			newAsteroid.forceSmall(position)
-			get_tree().get_root().get_node("World").add_child.call_deferred(newAsteroid)
 	find_parent("World").addPoint(10*size)
 	self.queue_free()
 
@@ -66,7 +49,8 @@ func _draw():
 
 
 func _physics_process(delta):
-	self.position += dir * speed * delta
+	#self.position += dir * speed * delta
+	pass
 
 func setStartPosition():
 	var num = ran.randi_range(0,3)

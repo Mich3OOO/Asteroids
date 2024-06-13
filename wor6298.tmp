@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://csscjy4mb1ldj"]
+[gd_scene load_steps=5 format=3 uid="uid://csscjy4mb1ldj"]
 
 [ext_resource type="Script" path="res://scripts/InputManager.gd" id="1_ltisb"]
 [ext_resource type="PackedScene" uid="uid://vj70eqlupr0s" path="res://playb.tscn" id="3_5ius6"]
-[ext_resource type="Script" path="res://scripts/UFObehaviour.gd" id="4_nkqe1"]
 [ext_resource type="Script" path="res://scripts/GeneratorScript.gd" id="5_dxiph"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w7up2"]
@@ -44,9 +43,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Quit Game"
 
-[node name="UFO" type="Area2D" parent="."]
-position = Vector2(300, 300)
-script = ExtResource("4_nkqe1")
+[node name="UFO" type="Node2D" parent="."]
 metadata/tag = "UFO"
 
 [connection signal="button_down" from="PlayButton" to="." method="start_Game"]

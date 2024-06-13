@@ -6,7 +6,8 @@ extends Node2D
 var AteroidAsset = preload("res://asteroid.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	createAsteroide()
+	#createAsteroide()
+	pass
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
